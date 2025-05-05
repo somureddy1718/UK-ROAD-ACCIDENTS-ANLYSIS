@@ -1,0 +1,29 @@
+
+
+ Analysis of Urban Area Accidents: Total Incidents and Average Casualties
+
+
+ SELECT 
+    ADDim.Urban_or_Rural_Area,
+    COUNT(FD.Fact_ID) AS TotalAccidents,
+    AVG(FD.Number_of_Casualties) AS AverageCasualties
+FROM 
+    Fact_Details FD
+JOIN 
+    AccidentDetailsDim ADDim ON FD.Accident_ID = ADDim.Accident_ID
+WHERE 
+    ADDim.Urban_or_Rural_Area = 'Urban'  -- Slicing to focus on Urban areas
+GROUP BY 
+    ADDim.Urban_or_Rural_Area
+ORDER BY 
+    TotalAccidents DESC;
+
+
+
+
+
+ +----+-----------------------+------------------+---------------------+
+|    | Urban_or_Rural_Area   |   TotalAccidents |   AverageCasualties |
++====+=======================+==================+=====================+
+|  0 | Urban                 |           130042 |                   1 |
++----+-----------------------+------------------+---------------------+
